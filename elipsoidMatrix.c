@@ -82,7 +82,7 @@ int *** generateMatrix(int nl, int nc, int np){
 void printMatrix(int nl, int nc, int np, int *** matrix){
     int i, j, k;
 
-    printf("\n\nBEGGIN OF MATRIX PRINTING:\n");
+    printf("\n\nBEGINNING OF MATRIX PRINTING:\n");
     for( i = 0; i < np; i++){
        for( j = 0; j < nl; j++){
            for( k = 0; k < nc; k++){
