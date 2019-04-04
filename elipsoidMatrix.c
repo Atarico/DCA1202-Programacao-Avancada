@@ -2,21 +2,46 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*duvidas: 
+-freeAlloc tá certo?
+-da pra fz a indexação sem usar if?
+-função com argumentos opcionais
+*/
+
 int *** generateMatrix(int nl, int nc, int np);
 int *** generateMatrix2(int nl, int nc, int np);
 void printMatrix(int nl, int nc, int np, int *** matrix);
 void printMatrix2(int nl, int nc, int np, int *** matrix);
 void freeAllocMatrix(int *** matrix);
-void drawElipsoidOnMatrix(int nl, int nc, int np, int *** matrix, int x0, int y0, int z0);
+void drawElipsoidOnMatrix(int nl, int nc, int np, int *** matrix, int x0, int y0, int z0, int tamX, int tamY, int tamZ);
 
 int main()
 {
-    int nl=9, nc=9, np=9;
-    unsigned char ***space3D;
+    int nl, nc, np, cX, cY, cZ, sizeX, sizeY, sizeZ;
+    int ***space3D;
+
+    printf("Informe a quantidade de linhas, colunas e planos da sua matriz, respectivamente: \n");
+    scanf("%d", &nl);
+    scanf("%d", &nc);
+    scanf("%d", &np);
+    printf("\nInforme a posicao da elipsoide em termos de x, y, e z, respectivamente, considerando que "
+           "(x,y,z) eh um ponto no espaco definido pela matriz 3D: \n");
+    scanf("%d", &cX);
+    scanf("%d", &cY);
+    scanf("%d", &cZ);
+    printf("\nInforme o tamanho dos eixos-maiores dessa elipse, ou seja, 2*a, 2*b, 2*c, onde a, b e c estao "
+           "relacionados respectivamente aos eixos x, y e z da nossa matriz 3D: \n");
+    scanf("%d", &sizeX);
+    scanf("%d", &sizeY);
+    scanf("%d", &sizeZ);
+
+    printf("----------------------------------------------");
+    printf("\nLembre-se de que na representacao abaixo, cada matriz bidimensional representa um plano de nossa matriz"
+           " tridimensional. Os planos estao associados ao eixo X, as linhas ao eixo Y, e as colunas ao eixo Z.\n");
+    printf("----------------------------------------------\n");
 
     space3D = generateMatrix(nl, nc, np);
-//    printMatrix(nl, nc, np, space3D);
-    drawElipsoidOnMatrix(nl, nc, np, space3D, 4, 5, 3);
+    drawElipsoidOnMatrix(nl, nc, np, space3D, cX, cY, cZ, sizeX, sizeY, sizeZ);
     printMatrix(nl, nc, np, space3D);
     freeAllocMatrix(space3D);
 
@@ -57,7 +82,7 @@ int *** generateMatrix(int nl, int nc, int np){
 void printMatrix(int nl, int nc, int np, int *** matrix){
     int i, j, k;
 
-    printf("BEGGIN OF MATRIX PRINTING: \n");
+    printf("\n\nBEGGIN OF MATRIX PRINTING:\n");
     for( i = 0; i < np; i++){
        for( j = 0; j < nl; j++){
            for( k = 0; k < nc; k++){
@@ -70,7 +95,7 @@ void printMatrix(int nl, int nc, int np, int *** matrix){
        }
        printf("\n");
     }
-    printf("END OF MATRIX PRINTING \n\n\n\n");
+    printf("END OF MATRIX PRINTING \n\n");
 }
 
 void freeAllocMatrix(int *** matrix){
@@ -79,14 +104,14 @@ void freeAllocMatrix(int *** matrix){
     free(matrix[0][0]);
 }
 
-void drawElipsoidOnMatrix(int nl, int nc, int np, int *** matrix, int x0, int y0, int z0){
+void drawElipsoidOnMatrix(int nl, int nc, int np, int *** matrix, int x0, int y0, int z0, int tamX, int tamY, int tamZ){
     int i; int j; int k;
 
     for(i = 0; i < np; i++){
         for(j = 0; j < nl; j++){
             for(k = 0; k < nc; k++){
                 if(
-                    (pow((k-z0),2) / (float)pow(nc/2, 2) + pow((j-y0),2) / (float)pow(nl/2, 2) + pow((i-x0),2) / (float)pow(np/2, 2)) <= 1
+                     (pow((i-x0),2) / (float)pow(tamX/2, 2) + pow((j-y0),2) / (float)pow(tamY/2, 2) + pow((k-z0),2) / (float)pow(tamZ/2, 2)) <= 1
                 ){
                     matrix[i][j][k] = 1;
                 }
