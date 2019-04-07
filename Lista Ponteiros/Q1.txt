@@ -1,2 +1,0 @@
-Os ponteiros permitem a manipulação de variáveis em diversas partes do código sem que seja necessária a cópia do valor dessas variáveis, já que através dos ponteiros pode-se acessar o valor das variáveis através do seu endereço na memória.
-Quando se trata de programas curtos, essa característica dos ponteiros talvez não seja de grande necessidade. Mas, em programas que tratam uma quantidade grande de dados, ou em programas embarcados que lidam com memória e hardware limitados, a utilização de ponteiros é necessária para garantir uma boa performance.
