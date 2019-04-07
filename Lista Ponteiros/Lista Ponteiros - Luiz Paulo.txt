@@ -1,0 +1,64 @@
+﻿Questão 1-
+Os ponteiros permitem a manipulação de variáveis em diversas partes do código sem que seja necessária a cópia do valor dessas variáveis, já que através dos ponteiros pode-se acessar o valor das variáveis usando apenas seu endereço na memória.
+Quando se trata de programas curtos, essa característica dos ponteiros talvez não seja de grande necessidade. Mas, em programas que tratam uma quantidade grande de dados, ou em programas embarcados que lidam com memória e hardware limitados, a utilização de ponteiros é necessária para garantir uma boa performance.
+
+Questão 2-
+p == &i; essa expressão vale 1
+*p - *q; essa expressão vale -2
+**&p; essa expressão vale 3
+3 - *p/(*q) + 7;essa expressão vale 0
+
+Questão 3-
+printf("%x %d %d %d %d", p,*p+2,**&p,3**p,**&p+4); vai imprimir:
+FFE 7 5 15 9
+
+Questão 4-
+p = i; -> atribuição ilegal
+q = &j;
+p = &*&i;
+i = (*&)j; -> atribuição ilegal
+i = *&j;
+i = *&*&j;
+q = *p; -> atribuição ilegal
+i = (*p)++ + *q;
+
+Questão 5-
+20
+29.0
+P
+e
+P
+e
+t
+31
+45
+27
+31
+45
+27
+
+Questão 6-
+contador/valor/valor/endereco/endereco
+i = 0vet[0] = 1.1*(f + 0) = 1.1&vet[0] = 0x7FFC50038F60(f + 0) = 0x7FFC50038F60
+i = 1vet[1] = 2.2*(f + 1) = 2.2&vet[1] = 0x7FFC50038F64(f + 1) = 0x7FFC50038F64
+i = 2vet[2] = 3.3*(f + 2) = 3.3&vet[2] = 0x7FFC50038F68(f + 2) = 0x7FFC50038F68
+i = 3vet[3] = 4.4*(f + 3) = 4.4&vet[3] = 0x7FFC50038F6C(f + 3) = 0x7FFC50038F6C
+i = 4vet[4] = 5.5*(f + 4) = 5.5&vet[4] = 0x7FFC50038F70(f + 4) = 0x7FFC50038F70
+
+Questão 7-
+*(pulo + 2); -> apenas essa expressão referencia o valor da terceira posição do vetor pulo
+*(pulo + 4);
+pulo + 4;
+pulo + 2;
+
+Questão 8-
+p = mat + 1; -> expressão válida, pois estamos atribuindo uma posição de memória incrementada de um a um ponteiro de mesmo tipo
+p = mat++; -> expressão inválida pois não se pode usar os operadores ++ ou -- em um array, já que não se pode mudar a posição de um array (diferentemente de um ponteiro)
+p = ++mat; -> expressão inválida pelo mesmo motivo da expressão anterior
+x = (*mat)++; -> expressão válida, pois estamos pegando o conteúdo do vetor mat na posição 0 (*mat) que é um inteiro e colocando-o na variável x que também é inteira
+
+Questão 9-
+O primeiro programa imprime os valores do vetor "vet", ou seja, imprime 4 9 13
+Já o segundo programa imprime os endereços de memória de cada posição do vetor em hexadecimal
+
+Questão 10-
