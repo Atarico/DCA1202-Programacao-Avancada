@@ -1,12 +1,14 @@
 #include "matriz.h"
+
 #include <iostream>
 #include <cstdlib>
 
 using namespace std;
 
-Matriz::Matriz(int _nl, int _nc, int _np)
+Matriz::Matriz(Voxel*** _v, int _nl, int _nc, int _np)
 {
     nl = _nl; nc = _nc; np = _np;
+    v = _v;
 
     //allocates X
     v = new Voxel**[nl];
@@ -51,6 +53,9 @@ Matriz::Matriz(int _nl, int _nc, int _np)
         for(int j = 0; j<nc; j++){
             for(int k = 0; k<np; k++){
                 v[i][j][k].isOn = false;
+                v[i][j][k].r = 255;
+                v[i][j][k].g = 255;
+                v[i][j][k].b = 255;
             }
         }
     }
@@ -68,7 +73,7 @@ Matriz::print()
     for(int i = 0; i<nl; i++){
         for(int j = 0; j<nc; j++){
             for(int k = 0; k<np; k++){
-                cout<<v[i][j][k].isOn;
+                cout<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].r<<"  ";
             }
             cout<<endl;
         }
