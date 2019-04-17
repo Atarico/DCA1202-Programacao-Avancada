@@ -17,7 +17,7 @@ int main()
     cin>>r>>g>>b>>a;
 
     escultor.setColor(r, g, b, a);
-    escultor.putVoxel(2,2,2);
+    //escultor.putVoxel(2,2,2);
 
     return 0;
 }

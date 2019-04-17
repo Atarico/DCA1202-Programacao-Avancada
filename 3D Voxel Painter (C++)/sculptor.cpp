@@ -13,6 +13,10 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz, float _r, float _g, float _b, floa
     a = _a;
 
     Matrix matriz(v, nx, ny, nz);
+    matriz(2,2,2).r = 0;
+    matriz(2,2,2).g = 0;
+    matriz(2,2,2).b = 0;
+    matriz(2,2,2).a = 1;
     matriz.print();
 }
 
@@ -32,7 +36,7 @@ void Sculptor::putVoxel(int x, int y, int z)
                 if(x == i && y == j && z == k)
                 {
 //                    this->v[i][j][k].isOn = true;
-                    this->v[i][j][k].r = r;
+
 //                    this->v[i][j][k].g = g;
 //                    this->v[i][j][k].b = b;
 //                    this->v[i][j][k].a = a;

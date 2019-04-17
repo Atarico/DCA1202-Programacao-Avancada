@@ -10,6 +10,11 @@ Matrix::Matrix(Voxel*** _v, int _nl, int _nc, int _np)
     nl = _nl; nc = _nc; np = _np;
     v = _v;
 
+    if(nl < 0 or nc < 0 or np < 0)
+    {
+        nl = 0; nc = 0; np = 0;
+    }
+
     //allocates X
     v = new Voxel**[nl];
     //verifies if X has been allocated
@@ -63,9 +68,25 @@ Matrix::Matrix(Voxel*** _v, int _nl, int _nc, int _np)
 
 Matrix::~Matrix()
 {
+    if(nl < 0 or nc < 0 or np < 0)
+    {
+        return;
+    }
+
     delete [] v[0][0];
     delete [] v[0];
     delete [] v;
+}
+
+Voxel& Matrix::operator ()(int i, int j, int k)
+{
+    if( i>=0 && j>=0 && k>=0 && i<nl && j<nc && k<np){
+        return v[i][j][k]; //returns the address of the voxel so that we can operate on it's atributes
+    }
+    else{
+        exit(0);
+    }
+
 }
 
 void Matrix::print()
