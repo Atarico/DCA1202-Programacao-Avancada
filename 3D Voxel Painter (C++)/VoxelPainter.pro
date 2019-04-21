@@ -5,10 +5,8 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    sculptor.cpp \
-    matrix.cpp
+    sculptor.cpp
 
 HEADERS += \
     matriz.h \
-    sculptor.h \
-    matrix.h
+    sculptor.h
