@@ -17,7 +17,7 @@ int main()
     //cout<<"Digite, em sequencia, os valores rgb e o alpha: "<<endl;
     //cin>>r>>g>>b>>a;
 
-    escultor.setColor(1, 1, 1, 1);
+    escultor.setColor(1, 0, 0, 1);
     //escultor.print();
     cout<<"---------------------"<<endl;
     escultor.putEllipsoid(4,4,4,2,4,2);
@@ -25,6 +25,17 @@ int main()
     cout<<"---------------------"<<endl;
     escultor.cutEllipsoid(4,4,4,1,2,1);
     escultor.print();
+
+    //escultor.putBox(0,1,0,1,0,1);
+    //escultor.cutVoxel(0,0,0);
+    //escultor.cutVoxel(1,1,1);
+    //escultor.setColor(0, 1, 0, 1);
+    //escultor.putVoxel(1,1,1);
+    //escultor.print();
+
+    string str("VECT_file");
+
+    escultor.writeVECT(str);
 
     return 0;
 }
