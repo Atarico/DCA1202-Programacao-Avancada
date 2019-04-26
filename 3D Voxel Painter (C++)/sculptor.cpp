@@ -220,4 +220,125 @@ void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
     }
 }
 
+void Sculptor::writeOFF(string filename)
+{
+    ofstream fout;
 
+    fout.open("C:/Users/MatrizD42018/Downloads/"+filename+".off");
+    if(fout.is_open() == false)
+    {
+        cout << "arquivo nao foi aberto\n";
+        exit(1);
+    }
+
+    fout<<"OFF"<<endl;
+
+    int nvoxels = 0;
+    for(int i = 0; i<nx; i++){
+        for(int j = 0; j<ny; j++){
+            for(int k = 0; k<nz; k++){
+                if(v[i][j][k].isOn){
+                    nvoxels = nvoxels+1;
+                }
+            }
+        }
+    }
+    fout<<nvoxels*8<<" "<<nvoxels*6<<" 0"<<endl;
+
+    //printing the (x,y,z) position of every vertex (there will be 8 vertices for each voxel)
+    for(int i = 0; i<nx; i++){
+        for(int j = 0; j<ny; j++){
+            for(int k = 0; k<nz; k++){
+                if(v[i][j][k].isOn){
+                    fout<<(float)i-0.5<<" "<<(float)j+0.5<<" "<<(float)k-0.5<<endl;
+                    fout<<(float)i-0.5<<" "<<(float)j-0.5<<" "<<(float)k-0.5<<endl;
+                    fout<<(float)i+0.5<<" "<<(float)j-0.5<<" "<<(float)k-0.5<<endl;
+                    fout<<(float)i+0.5<<" "<<(float)j+0.5<<" "<<(float)k-0.5<<endl;
+                    fout<<(float)i-0.5<<" "<<(float)j+0.5<<" "<<(float)k+0.5<<endl;
+                    fout<<(float)i-0.5<<" "<<(float)j-0.5<<" "<<(float)k+0.5<<endl;
+                    fout<<(float)i+0.5<<" "<<(float)j-0.5<<" "<<(float)k+0.5<<endl;
+                    fout<<(float)i+0.5<<" "<<(float)j+0.5<<" "<<(float)k+0.5<<endl;
+                }
+            }
+        }
+    }
+
+    //printing the order of connection of 4 vertices to define a face (there will be 6 faces for each voxel)
+    int vcn = 0; //vertex count for each activated vertex
+    for(int i = 0; i<nx; i++){
+        for(int j = 0; j<ny; j++){
+            for(int k = 0; k<nz; k++){
+                if(v[i][j][k].isOn){
+                    //int vcn = vc*8; //vertex count multipled by 8, so that we jump 8 vertices in our printing every time we change voxel
+
+                    fout<<"4 "<<vcn+0<<" "<<vcn+3<<" "<<vcn+2<<" "<<vcn+1<<" "<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].b<<" "<<v[i][j][k].a<<endl;
+                    fout<<"4 "<<vcn+4<<" "<<vcn+5<<" "<<vcn+6<<" "<<vcn+7<<" "<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].b<<" "<<v[i][j][k].a<<endl;
+                    fout<<"4 "<<vcn+0<<" "<<vcn+1<<" "<<vcn+5<<" "<<vcn+4<<" "<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].b<<" "<<v[i][j][k].a<<endl;
+                    fout<<"4 "<<vcn+0<<" "<<vcn+4<<" "<<vcn+7<<" "<<vcn+3<<" "<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].b<<" "<<v[i][j][k].a<<endl;
+                    fout<<"4 "<<vcn+3<<" "<<vcn+7<<" "<<vcn+6<<" "<<vcn+2<<" "<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].b<<" "<<v[i][j][k].a<<endl;
+                    fout<<"4 "<<vcn+1<<" "<<vcn+2<<" "<<vcn+6<<" "<<vcn+5<<" "<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].b<<" "<<v[i][j][k].a<<endl;
+
+                    vcn = vcn+8;
+                }
+            }
+        }
+    }
+}
+
+void Sculptor::writeVECT(string filename)
+{
+    ofstream fout;
+
+    fout.open("C:/Users/MatrizD42018/Downloads/"+filename+".vect");
+    //fout.open("C:/Users/ulab14dm/Downloads/teste.vect");
+    if(fout.is_open() == false)
+    {
+        cout << "arquivo nao foi aberto\n";
+        exit(1);
+    }
+
+    fout<<"VECT"<<endl;
+
+    int nvoxels = 0;
+    for(int i = 0; i<nx; i++){
+        for(int j = 0; j<ny; j++){
+            for(int k = 0; k<nz; k++){
+                if(v[i][j][k].isOn){
+                    nvoxels = nvoxels+1;
+                }
+            }
+        }
+    }
+    fout<<nvoxels<<" "<<nvoxels<<" "<<nvoxels<<endl;
+
+    for(int i = 1; i<nvoxels; i++){
+        fout<<"1 ";
+    }
+    fout<<"1"<<endl;
+
+    for(int i = 1; i<nvoxels; i++){
+        fout<<"1 ";
+    }
+    fout<<"1"<<endl;
+
+    for(int i = 0; i<nx; i++){
+        for(int j = 0; j<ny; j++){
+            for(int k = 0; k<nz; k++){
+                if(v[i][j][k].isOn){
+                    fout<<i<<" "<<j<<" "<<k<<endl;
+                }
+            }
+        }
+    }
+
+    for(int i = 0; i<nx; i++){
+        for(int j = 0; j<ny; j++){
+            for(int k = 0; k<nz; k++){
+                if(v[i][j][k].isOn){
+                    fout<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].b<<" "<<v[i][j][k].a<<endl;
+                }
+            }
+        }
+    }
+
+}
