@@ -5,14 +5,13 @@ using namespace std;
 
 int main()
 {
-    float r = 0, g = 0, b = 0, a = 0;
-    int nx, ny, nz;
-    Voxel*** v;
+    //float r = 0, g = 0, b = 0, a = 0;
+    //int nx, ny, nz;
 
     //cout<<"Digite, em sequencia, as dimensoes do seu canvas (x, y, z): "<<endl;
     //cin>>nx>>ny>>nz;
 
-    Sculptor escultor(v, 2, 2, 2);
+    Sculptor escultor(3, 2, 2);
 
     //cout<<"Digite, em sequencia, os valores rgb e o alpha: "<<endl;
     //cin>>r>>g>>b>>a;
@@ -34,7 +33,7 @@ int main()
     escultor.print();
 
 
-    Sculptor escultor2(v, 1, 1, 1);
+    Sculptor escultor2(1, 1, 1);
     escultor2.setColor(1, 1, 1, 1);
     escultor2.putVoxel(0,0,0);
     escultor2.print();

@@ -8,5 +8,4 @@ SOURCES += \
     sculptor.cpp
 
 HEADERS += \
-    matriz.h \
     sculptor.h

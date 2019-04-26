@@ -1,9 +1,8 @@
 #include "sculptor.h"
 
-Sculptor::Sculptor(Voxel*** _v, int _nx, int _ny, int _nz)
+Sculptor::Sculptor(int _nx, int _ny, int _nz)
 {
     nx = _nx; ny = _ny; nz = _nz;
-    v = _v;
 
     if(nx < 0 or ny < 0 or nz < 0)
     {
@@ -44,7 +43,7 @@ Sculptor::Sculptor(Voxel*** _v, int _nx, int _ny, int _nz)
     }
 
     //indexing X's planes
-    for(int i = 1; i<ny*nz; i++){
+    for(int i = 1; i<nx*ny; i++){
         v[0][i] = v[0][i-1] + nz;
     }
 
@@ -224,7 +223,7 @@ void Sculptor::writeOFF(string filename)
 {
     ofstream fout;
 
-    fout.open("C:/Users/MatrizD42018/Downloads/"+filename+".off");
+    fout.open("C:/UFRN/"+filename+".off");
     if(fout.is_open() == false)
     {
         cout << "arquivo nao foi aberto\n";
@@ -289,8 +288,7 @@ void Sculptor::writeVECT(string filename)
 {
     ofstream fout;
 
-    fout.open("C:/Users/MatrizD42018/Downloads/"+filename+".vect");
-    //fout.open("C:/Users/ulab14dm/Downloads/teste.vect");
+    fout.open("C:/UFRN/"+filename+".vect");
     if(fout.is_open() == false)
     {
         cout << "arquivo nao foi aberto\n";

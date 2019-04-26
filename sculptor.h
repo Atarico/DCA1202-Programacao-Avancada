@@ -22,7 +22,7 @@ protected:
   int nx,ny,nz; // Dimensions
   float r,g,b,a; // Current drawing color
 public:
-  Sculptor(Voxel*** _v, int _nx, int _ny, int _nz);
+  Sculptor(int _nx, int _ny, int _nz);
   ~Sculptor();
   Voxel& operator () (int i, int j, int k);
   void print();
