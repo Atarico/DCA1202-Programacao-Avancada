@@ -2,6 +2,7 @@
 #define SCULPTOR_H
 
 #include <iostream>
+#include <fstream>
 //#include "matriz.h"
 
 using namespace std;
