@@ -223,7 +223,8 @@ void Sculptor::writeOFF(string filename)
 {
     ofstream fout;
 
-    fout.open("C:/UFRN/"+filename+".off");
+
+    fout.open("./"+filename+".off");
     if(fout.is_open() == false)
     {
         cout << "arquivo nao foi aberto\n";
@@ -245,22 +246,28 @@ void Sculptor::writeOFF(string filename)
     fout<<nvoxels*8<<" "<<nvoxels*6<<" 0"<<endl;
 
     //printing the (x,y,z) position of every vertex (there will be 8 vertices for each voxel)
+    //the position of each vertex is shifted by a factor defined below (vRadius)
+    //so that the total lenght of one side of the voxel is defined by vRadius*2
+    //In the end, we will have each of our voxels separated by a 0.10 length gap from eachother
+    float vRadius=0.45f;
     for(int i = 0; i<nx; i++){
         for(int j = 0; j<ny; j++){
             for(int k = 0; k<nz; k++){
                 if(v[i][j][k].isOn){
-                    fout<<(float)i-0.5<<" "<<(float)j+0.5<<" "<<(float)k-0.5<<endl;
-                    fout<<(float)i-0.5<<" "<<(float)j-0.5<<" "<<(float)k-0.5<<endl;
-                    fout<<(float)i+0.5<<" "<<(float)j-0.5<<" "<<(float)k-0.5<<endl;
-                    fout<<(float)i+0.5<<" "<<(float)j+0.5<<" "<<(float)k-0.5<<endl;
-                    fout<<(float)i-0.5<<" "<<(float)j+0.5<<" "<<(float)k+0.5<<endl;
-                    fout<<(float)i-0.5<<" "<<(float)j-0.5<<" "<<(float)k+0.5<<endl;
-                    fout<<(float)i+0.5<<" "<<(float)j-0.5<<" "<<(float)k+0.5<<endl;
-                    fout<<(float)i+0.5<<" "<<(float)j+0.5<<" "<<(float)k+0.5<<endl;
+                    fout<<(float)i-vRadius<<" "<<(float)j+vRadius<<" "<<(float)k-vRadius<<endl;
+                    fout<<(float)i-vRadius<<" "<<(float)j-vRadius<<" "<<(float)k-vRadius<<endl;
+                    fout<<(float)i+vRadius<<" "<<(float)j-vRadius<<" "<<(float)k-vRadius<<endl;
+                    fout<<(float)i+vRadius<<" "<<(float)j+vRadius<<" "<<(float)k-vRadius<<endl;
+                    fout<<(float)i-vRadius<<" "<<(float)j+vRadius<<" "<<(float)k+vRadius<<endl;
+                    fout<<(float)i-vRadius<<" "<<(float)j-vRadius<<" "<<(float)k+vRadius<<endl;
+                    fout<<(float)i+vRadius<<" "<<(float)j-vRadius<<" "<<(float)k+vRadius<<endl;
+                    fout<<(float)i+vRadius<<" "<<(float)j+vRadius<<" "<<(float)k+vRadius<<endl;
                 }
             }
         }
     }
+
+    fout << std::setprecision(1) << fixed;
 
     //printing the order of connection of 4 vertices to define a face (there will be 6 faces for each voxel)
     int vcn = 0; //vertex count for each activated vertex
@@ -288,7 +295,7 @@ void Sculptor::writeVECT(string filename)
 {
     ofstream fout;
 
-    fout.open("C:/UFRN/"+filename+".vect");
+    fout.open("./"+filename+".vect");
     if(fout.is_open() == false)
     {
         cout << "arquivo nao foi aberto\n";
