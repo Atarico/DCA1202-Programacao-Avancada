@@ -66,7 +66,7 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz)
     }
 }
 /*!
- * Destruidor da classe
+ * Destrutor da classe
  */
 
 Sculptor::~Sculptor()
@@ -92,6 +92,9 @@ Voxel& Sculptor::operator ()(int i, int j, int k)
 
 }
 
+/*!
+ * Imprime a matriz tridimensional de voxels no prompt de comando para fins de debugar o código.
+ */
 void Sculptor::print()
 {
     for(int i = 0; i<nx; i++){
@@ -122,6 +125,7 @@ void Sculptor::setColor(float red, float green, float blue, float alpha)
     b = blue;
     a = alpha;
 }
+
 /*!
  * Ativa o voxel na posição (x,y,z) e atribui ao mesmo a cor atual de desenho
  * \param x posição "x"
@@ -137,6 +141,7 @@ void Sculptor::putVoxel(int x, int y, int z)
     v[x][y][z].a = a;
 
 }
+
 /*!
  * Desativa o voxel na posição (x,y,z)
  * \param x posição x
@@ -148,6 +153,7 @@ void Sculptor::cutVoxel(int x, int y, int z)
     v[x][y][z].isOn = false;
 
 }
+
 /*!
  * Ativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1] e atribui aos mesmos a cor atual de desenho.
  * \param x0 posição "x0" incial.
@@ -157,7 +163,6 @@ void Sculptor::cutVoxel(int x, int y, int z)
  * \param z0 posição "z0" incial.
  * \param z1 posição "z1" final.
  */
-
 void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1)
 {
     for(int i = 0; i<nx; i++){
@@ -176,8 +181,9 @@ void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1)
         }
     }
 }
+
 /*!
- * Desativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1] e atribui aos mesmos a cor atual de desenho
+ * Desativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1]
  * \param x0 posição "x0" incial.
  * \param x1 posição "x1" final.
  * \param y0 posição "y0" incial.
@@ -199,12 +205,13 @@ void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1)
         }
     }
 }
+
 /*!
  * Ativa todos os voxels que satisfazem à equação da esfera e atribui aos mesmos a cor atual de desenho (r,g,b,a).
- * \param xcenter centro da efera na cordenada x.
- * \param ycenter centro da efera na cordenada y.
- * \param zcenter centro da efera na cordenada z.
- * \param radius raio da efera
+ * \param xcenter centro da esfera na cordenada x.
+ * \param ycenter centro da esfera na cordenada y.
+ * \param zcenter centro da esfera na cordenada z.
+ * \param radius raio da esfera
  */
 void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
 {
@@ -224,12 +231,13 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
         }
     }
 }
+
 /*!
  * Desativa todos os voxels que satisfazem à equação da esfera
- * \param xcenter centro da efera na cordenada x.
- * \param ycenter centro da efera na cordenada y.
- * \param zcenter centro da efera na cordenada z.
- * \param radius raio da efera
+ * \param xcenter centro da esfera na cordenada x.
+ * \param ycenter centro da esfera na cordenada y.
+ * \param zcenter centro da esfera na cordenada z.
+ * \param radius raio da esfera
  */
 void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius)
 {
@@ -244,6 +252,15 @@ void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius)
     }
 }
 
+/*!
+ * Ativa todos os voxels que satisfazem à equação da elipsoide e atribui aos mesmos a cor atual de desenho (r,g,b,a).
+ * \param xcenter centro da elipsoide na cordenada x.
+ * \param ycenter centro da elipsoide na cordenada y.
+ * \param zcenter centro da elipsoide na cordenada z.
+ * \param rx Semi-eixo principal x da elipsoide.
+ * \param ry Semi-eixo principal y da elipsoide.
+ * \param rz Semi-eixo principal z da elipsoide.
+ */
 void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
 {
     for(int i = 0; i<nx; i++){
@@ -261,6 +278,15 @@ void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
     }
 }
 
+/*!
+ * Desativa todos os voxels que satisfazem à equação da elipsoide.
+ * \param xcenter centro da elipsoide na cordenada x.
+ * \param ycenter centro da elipsoide na cordenada y.
+ * \param zcenter centro da elipsoide na cordenada z.
+ * \param rx Semi-eixo principal x da elipsoide.
+ * \param ry Semi-eixo principal y da elipsoide.
+ * \param rz Semi-eixo principal z da elipsoide.
+ */
 void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
 {
     for(int i = 0; i<nx; i++){
@@ -274,6 +300,13 @@ void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
     }
 }
 
+/*!
+ * Escreve um arquivo "filename".off no diretório do arquivo .exe com uma representação de nossa matriz 3D de voxels, 
+ * permitindo a visualização da matriz em um software externo de representação 3D, como o 
+	<a href="http://www.meshlab.net" target="_blank">Meshlab</a>(Windows) ou o 
+	<a href="http://www.geomview.org/" target="_blank">Geomview</a>(Linux).
+ * \param filename string que será usada como nome do arquivo na hora de escreve-lo na memória.
+ */
 void Sculptor::writeOFF(string filename)
 {
     ofstream fout;
@@ -346,6 +379,13 @@ void Sculptor::writeOFF(string filename)
     }
 }
 
+/*!
+ * Escreve um arquivo "filename".vect no diretório do arquivo .exe com uma representação de nossa matriz 3D de voxels, 
+ * permitindo a visualização da matriz em um software externo de representação 3D, como o 
+	<a href="http://www.meshlab.net" target="_blank">Meshlab</a>(Windows) ou o 
+	<a href="http://www.geomview.org/" target="_blank">Geomview</a>(Linux).
+ * \param filename string que será usada como nome do arquivo na hora de escreve-lo na memória.
+ */
 void Sculptor::writeVECT(string filename)
 {
     ofstream fout;
