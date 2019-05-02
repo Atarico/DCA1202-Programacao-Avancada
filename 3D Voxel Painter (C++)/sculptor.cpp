@@ -1,4 +1,10 @@
-#include "sculptor.h"
+#include "sculptor.h" 
+/*!
+ * Construtor da classe para geração da matriz tridimensional.
+ * \param _nx numero de linha
+ * \param _ny numero de colunas
+ * \param _nz numero de planos
+ */
 
 Sculptor::Sculptor(int _nx, int _ny, int _nz)
 {
@@ -59,6 +65,9 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz)
         }
     }
 }
+/*!
+ * Destruidor da classe
+ */
 
 Sculptor::~Sculptor()
 {
@@ -98,6 +107,13 @@ void Sculptor::print()
     }
 }
 
+/*!
+ * Define a cor atual de desenho.
+ * \param red  define a cor vermelha
+ * \param green define a cor verde
+ * \param blue define a cor azul
+ * \param alpha define a opacidade
+ */
 
 void Sculptor::setColor(float red, float green, float blue, float alpha)
 {
@@ -106,7 +122,12 @@ void Sculptor::setColor(float red, float green, float blue, float alpha)
     b = blue;
     a = alpha;
 }
-
+/*!
+ * Ativa o voxel na posição (x,y,z) e atribui ao mesmo a cor atual de desenho
+ * \param x posição "x"
+ * \param y posição "y"
+ * \param z posição "z"
+ */
 void Sculptor::putVoxel(int x, int y, int z)
 {
     v[x][y][z].isOn = true;
@@ -116,12 +137,26 @@ void Sculptor::putVoxel(int x, int y, int z)
     v[x][y][z].a = a;
 
 }
-
+/*!
+ * Desativa o voxel na posição (x,y,z)
+ * \param x posição x
+ * \param y posição y
+ * \param z posição z
+ */
 void Sculptor::cutVoxel(int x, int y, int z)
 {
     v[x][y][z].isOn = false;
 
 }
+/*!
+ * Ativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1] e atribui aos mesmos a cor atual de desenho.
+ * \param x0 posição "x0" incial.
+ * \param x1 posição "x1" final.
+ * \param y0 posição "y0" incial.
+ * \param y1 posição "y1" final.
+ * \param z0 posição "z0" incial.
+ * \param z1 posição "z1" final.
+ */
 
 void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1)
 {
@@ -141,7 +176,15 @@ void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1)
         }
     }
 }
-
+/*!
+ * Desativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1] e atribui aos mesmos a cor atual de desenho
+ * \param x0 posição "x0" incial.
+ * \param x1 posição "x1" final.
+ * \param y0 posição "y0" incial.
+ * \param y1 posição "y1" final.
+ * \param z0 posição "z0" incial.
+ * \param z1 posição "z1" final.
+ */
 void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1)
 {
     for(int i = 0; i<nx; i++){
@@ -156,7 +199,13 @@ void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1)
         }
     }
 }
-
+/*!
+ * Ativa todos os voxels que satisfazem à equação da esfera e atribui aos mesmos a cor atual de desenho (r,g,b,a).
+ * \param xcenter centro da efera na cordenada x.
+ * \param ycenter centro da efera na cordenada y.
+ * \param zcenter centro da efera na cordenada z.
+ * \param radius raio da efera
+ */
 void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
 {
     for(int i = 0; i<nx; i++){
@@ -175,7 +224,13 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
         }
     }
 }
-
+/*!
+ * Desativa todos os voxels que satisfazem à equação da esfera
+ * \param xcenter centro da efera na cordenada x.
+ * \param ycenter centro da efera na cordenada y.
+ * \param zcenter centro da efera na cordenada z.
+ * \param radius raio da efera
+ */
 void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius)
 {
     for(int i = 0; i<nx; i++){
