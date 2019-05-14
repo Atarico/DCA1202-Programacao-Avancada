@@ -1,51 +1,65 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
 #include "sculptor.h"
+#include "geometricfigure.h"
+#include "putbox.h"
+#include "cutbox.h"
 
 using namespace std;
 
 int main()
 {
-    //float r = 0, g = 0, b = 0, a = 0;
-    //int nx, ny, nz;
+    Sculptor sculptor;
+    vector<GeometricFigure*> figs;
+    fstream fin;
+    string s, filename;
+    stringstream ss;
 
-    //cout<<"Digite, em sequencia, as dimensoes do seu canvas (x, y, z): "<<endl;
-    //cin>>nx>>ny>>nz;
+    filename = "teste";
 
-    //cout<<"Digite, em sequencia, os valores rgb e o alpha: "<<endl;
-    //cin>>r>>g>>b>>a;
+    fin.open("./"+filename+".txt");
+    if(!fin.is_open()){
+        cout<<"Error while opening sculptor instruction file! Please make sure that your file is in the .exe directory"<<endl;
+        exit(0);
+    }
+    while(fin.good()){
+        getline(fin, s);
+        ss.str(s);
+        ss>>s;
 
-    //Declarando o objeto escultor1, usado como exemplo para escrever o arquivo .vect
-    Sculptor escultor1(3, 2, 2);
+//        int x,y,z;
+        cout<< s <<endl;
+//        ss>>x>>y;
+//        cout <<x<<", "<<y<<", "<<endl;
+        if(s.compare("dim")==0){
+            int dx, dy, dz;
+            ss>>dx>>dy>>dz;
+            sculptor(dx, dy, dz);
+        }
+        else if(s.compare("putbox")==0){
+            int x0, x1, y0, y1, z0, z1;
+            float r, g, b, a;
+            ss>>x0>>x1>>y0>>y1>>z0>>z1>>r>>g>>b>>a;
+            figs.push_back(new PutBox(x0, x1, y0, y1, z0, z1, r, g, b, a));
+        }
+        else if(s.compare("cutbox")==0){
+            int x0, x1, y0, y1, z0, z1;
+            ss>>x0>>x1>>y0>>y1>>z0>>z1;
+            figs.push_back(new CutBox(x0, x1, y0, y1, z0, z1));
+        }
+//        else {
+//            cout<<"Error reading file, program execution interupted!"<<endl<<"Please make sure your instructions are correctly under our guidelines before trying again."<<endl;
+//        }
+    }
 
-    escultor1.setColor(1, 0, 0, 1);
-    escultor1.putBox(0,1,0,1,0,1);
-    escultor1.cutVoxel(0,0,0);
-    escultor1.setColor(0, 1, 0, 1);
-    escultor1.putVoxel(1,1,1);
+    for(int i = 0; i< figs.size(); i++){
+        figs[i]->draw(sculptor);
+    }
 
-    string vect_scr("VECT_file");
-    escultor1.writeVECT(vect_scr);
-
-
-    //Declarando o objeto escultor2 usado como exemplo para escrever o arquivo .off
-    Sculptor escultor2(25,35,25);
-
-    escultor2.setColor(0,1,0,0.7);
-    escultor2.putEllipsoid(12,16,12,12,16,12);
-    escultor2.cutEllipsoid(12,16,12,11,15,11);
-    escultor2.setColor(1,1,1,0.5);
-    escultor2.putSphere(6,16,8,4);
-    escultor2.cutSphere(6,16,8,3);
-    escultor2.putSphere(6,16,16,4);
-    escultor2.cutSphere(6,16,16,3);
-    escultor2.setColor(0,0,0,1);
-    escultor2.putSphere(6,16,8,2);
-    escultor2.putSphere(6,16,16,2);
-    escultor2.cutBox(0,4,0,25,0,25);
-
-
-    string off_scr("OFF_file");
-    escultor2.writeOFF(off_scr);
+    sculptor.writeOFF("OFF_file");
 
     return 0;
 }

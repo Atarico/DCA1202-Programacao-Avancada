@@ -6,6 +6,11 @@
  * \param _nz numero de planos
  */
 
+Sculptor::Sculptor()
+{
+
+}
+
 Sculptor::Sculptor(int _nx, int _ny, int _nz)
 {
     nx = _nx; ny = _ny; nz = _nz;
@@ -58,9 +63,6 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz)
         for(int j = 0; j<ny; j++){
             for(int k = 0; k<nz; k++){
                 v[i][j][k].isOn = false;
-                v[i][j][k].r = 255;
-                v[i][j][k].g = 255;
-                v[i][j][k].b = 255;
             }
         }
     }
@@ -81,15 +83,9 @@ Sculptor::~Sculptor()
     delete [] v;
 }
 
-Voxel& Sculptor::operator ()(int i, int j, int k)
+void Sculptor::operator ()(int i, int j, int k)
 {
-    if( i>=0 && j>=0 && k>=0 && i<nx && j<ny && k<nz){
-        return v[i][j][k]; //returns the address of the voxel so that we can operate on it's atributes
-    }
-    else{
-        exit(0);
-    }
-
+    Sculptor(i, j, k);
 }
 
 /*!
