@@ -4,12 +4,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        main.cpp \
     cutbox.cpp \
     cutellipsoid.cpp \
     cutsphere.cpp \
     cutvoxel.cpp \
     geometricfigure.cpp \
-        main.cpp \
     putbox.cpp \
     putellipsoid.cpp \
     putsphere.cpp \

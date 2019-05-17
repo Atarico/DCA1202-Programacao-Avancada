@@ -97,7 +97,7 @@ int main()
         figs[i]->draw(*sculptor);
     }
 
-    //*sculptor->writeOFF("OFF_file");
+    (*sculptor).writeOFF("OFF_file");
 
     return 0;
 }
