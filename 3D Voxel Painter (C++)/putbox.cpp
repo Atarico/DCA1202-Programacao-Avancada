@@ -21,15 +21,11 @@ PutBox::~PutBox()
 
 void PutBox::draw(Sculptor &t)
 {
-    for(int i = 0; i<t.nx; i++){
-        for(int j = 0; j<t.ny; j++){
-            for(int k = 0; k<t.nz; k++){
-                if(i>=x0 && i<=x1 &&
-                   j>=y0 && j<=y1 &&
-                   k>=z0 && k<=z1){
-                    t.setColor(r, g, b, a);
-                    t.putVoxel(i, j, k);
-                }
+    for(int i = x0; i<=x1; i++){
+        for(int j = y0; j<=y1; j++){
+            for(int k = z0; k<=z1; k++){
+                t.setColor(r, g, b, a);
+                t.putVoxel(i, j, k);
             }
         }
     }

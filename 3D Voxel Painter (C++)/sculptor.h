@@ -18,16 +18,16 @@ struct Voxel {
 //definition of our sculptor class
 class Sculptor {
 public:
-    int nx, ny, nz; // Dimensions
+    int nx, ny, nz;
 protected:
+  //int nx, ny, nz; // Dimensions
   Voxel ***v; // 3D matrix
   float r,g,b,a; // Current drawing color
 public:
   Sculptor();
   Sculptor(int _nx, int _ny, int _nz);
   ~Sculptor();
-  void operator () (int i, int j, int k);
-  void print();
+  //void operator () (int i, int j, int k);
   void setColor(float red, float green, float blue, float alpha);
   void putVoxel(int x, int y, int z);
   void cutVoxel(int x, int y, int z);

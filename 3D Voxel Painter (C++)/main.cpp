@@ -12,7 +12,7 @@ using namespace std;
 
 int main()
 {
-    Sculptor sculptor;
+    Sculptor *sculptor;
     vector<GeometricFigure*> figs;
     fstream fin;
     string s, filename;
@@ -27,17 +27,16 @@ int main()
     }
     while(fin.good()){
         getline(fin, s);
+        ss.clear();
         ss.str(s);
         ss>>s;
 
-//        int x,y,z;
         cout<< s <<endl;
-//        ss>>x>>y;
-//        cout <<x<<", "<<y<<", "<<endl;
+
         if(s.compare("dim")==0){
             int dx, dy, dz;
             ss>>dx>>dy>>dz;
-            sculptor(dx, dy, dz);
+            sculptor = new Sculptor(dx, dy, dz);
         }
         else if(s.compare("putbox")==0){
             int x0, x1, y0, y1, z0, z1;
@@ -56,10 +55,10 @@ int main()
     }
 
     for(int i = 0; i< figs.size(); i++){
-        figs[i]->draw(sculptor);
+        figs[i]->draw(*sculptor);
     }
 
-    sculptor.writeOFF("OFF_file");
+    //*sculptor->writeOFF("OFF_file");
 
     return 0;
 }

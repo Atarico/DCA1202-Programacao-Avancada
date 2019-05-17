@@ -83,28 +83,10 @@ Sculptor::~Sculptor()
     delete [] v;
 }
 
-void Sculptor::operator ()(int i, int j, int k)
-{
-    Sculptor(i, j, k);
-}
-
-/*!
- * Imprime a matriz tridimensional de voxels no prompt de comando para fins de debugar o código.
- */
-void Sculptor::print()
-{
-    for(int i = 0; i<nx; i++){
-        for(int j = 0; j<ny; j++){
-            for(int k = 0; k<nz; k++){
-                //cout<<v[i][j][k].r<<" "<<v[i][j][k].g<<" "<<v[i][j][k].r<<"  ";
-                cout<<v[i][j][k].isOn<<" ";
-            }
-            cout<<endl;
-        }
-        cout<<endl;
-        cout<<endl;
-    }
-}
+//void Sculptor::operator ()(int i, int j, int k)
+//{
+//    Sculptor(i, j, k);
+//}
 
 /*!
  * Define a cor atual de desenho.
@@ -130,12 +112,15 @@ void Sculptor::setColor(float red, float green, float blue, float alpha)
  */
 void Sculptor::putVoxel(int x, int y, int z)
 {
-    v[x][y][z].isOn = true;
-    v[x][y][z].r = r;
-    v[x][y][z].g = g;
-    v[x][y][z].b = b;
-    v[x][y][z].a = a;
-
+    if(x>=0 && x<=nx &&
+       y>=0 && y<=ny &&
+       z>=0 && z<=nz){
+        v[x][y][z].isOn = true;
+        v[x][y][z].r = r;
+        v[x][y][z].g = g;
+        v[x][y][z].b = b;
+        v[x][y][z].a = a;
+    }
 }
 
 /*!
@@ -146,8 +131,11 @@ void Sculptor::putVoxel(int x, int y, int z)
  */
 void Sculptor::cutVoxel(int x, int y, int z)
 {
-    v[x][y][z].isOn = false;
-
+    if(x>=0 && x<=nx &&
+       y>=0 && y<=ny &&
+       z>=0 && z<=nz){
+        v[x][y][z].isOn = false;
+    }
 }
 
 /*!
