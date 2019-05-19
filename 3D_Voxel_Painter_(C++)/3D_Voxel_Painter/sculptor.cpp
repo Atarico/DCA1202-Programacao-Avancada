@@ -83,11 +83,6 @@ Sculptor::~Sculptor()
     delete [] v;
 }
 
-//void Sculptor::operator ()(int i, int j, int k)
-//{
-//    Sculptor(i, j, k);
-//}
-
 /*!
  * Define a cor atual de desenho.
  * \param red  define a cor vermelha
@@ -112,9 +107,9 @@ void Sculptor::setColor(float red, float green, float blue, float alpha)
  */
 void Sculptor::putVoxel(int x, int y, int z)
 {
-    if(x>=0 && x<=nx &&
-       y>=0 && y<=ny &&
-       z>=0 && z<=nz){
+    if(x>=0 && x<nx &&
+       y>=0 && y<ny &&
+       z>=0 && z<nz){
         v[x][y][z].isOn = true;
         v[x][y][z].r = r;
         v[x][y][z].g = g;
@@ -131,158 +126,158 @@ void Sculptor::putVoxel(int x, int y, int z)
  */
 void Sculptor::cutVoxel(int x, int y, int z)
 {
-    if(x>=0 && x<=nx &&
-       y>=0 && y<=ny &&
-       z>=0 && z<=nz){
+    if(x>=0 && x<nx &&
+       y>=0 && y<ny &&
+       z>=0 && z<nz){
         v[x][y][z].isOn = false;
     }
 }
 
-/*!
- * Ativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1] e atribui aos mesmos a cor atual de desenho.
- * \param x0 posição "x0" incial.
- * \param x1 posição "x1" final.
- * \param y0 posição "y0" incial.
- * \param y1 posição "y1" final.
- * \param z0 posição "z0" incial.
- * \param z1 posição "z1" final.
- */
-void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1)
-{
-    for(int i = 0; i<nx; i++){
-        for(int j = 0; j<ny; j++){
-            for(int k = 0; k<nz; k++){
-                if(i>=x0 && i<=x1 &&
-                   j>=y0 && j<=y1 &&
-                   k>=z0 && k<=z1){
-                    v[i][j][k].isOn = true;
-                    v[i][j][k].r = r;
-                    v[i][j][k].g = g;
-                    v[i][j][k].b = b;
-                    v[i][j][k].a = a;
-                }
-            }
-        }
-    }
-}
+///*!
+// * Ativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1] e atribui aos mesmos a cor atual de desenho.
+// * \param x0 posição "x0" incial.
+// * \param x1 posição "x1" final.
+// * \param y0 posição "y0" incial.
+// * \param y1 posição "y1" final.
+// * \param z0 posição "z0" incial.
+// * \param z1 posição "z1" final.
+// */
+//void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1)
+//{
+//    for(int i = 0; i<nx; i++){
+//        for(int j = 0; j<ny; j++){
+//            for(int k = 0; k<nz; k++){
+//                if(i>=x0 && i<=x1 &&
+//                   j>=y0 && j<=y1 &&
+//                   k>=z0 && k<=z1){
+//                    v[i][j][k].isOn = true;
+//                    v[i][j][k].r = r;
+//                    v[i][j][k].g = g;
+//                    v[i][j][k].b = b;
+//                    v[i][j][k].a = a;
+//                }
+//            }
+//        }
+//    }
+//}
 
-/*!
- * Desativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1]
- * \param x0 posição "x0" incial.
- * \param x1 posição "x1" final.
- * \param y0 posição "y0" incial.
- * \param y1 posição "y1" final.
- * \param z0 posição "z0" incial.
- * \param z1 posição "z1" final.
- */
-void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1)
-{
-    for(int i = 0; i<nx; i++){
-        for(int j = 0; j<ny; j++){
-            for(int k = 0; k<nz; k++){
-                if(i>=x0 && i<=x1 &&
-                   j>=y0 && j<=y1 &&
-                   k>=z0 && k<=z1){
-                    v[i][j][k].isOn = false;
-                }
-            }
-        }
-    }
-}
+///*!
+// * Desativa todos os voxels no intervalo x∈[x0,x1], y∈[y0,y1], z∈[z0,z1]
+// * \param x0 posição "x0" incial.
+// * \param x1 posição "x1" final.
+// * \param y0 posição "y0" incial.
+// * \param y1 posição "y1" final.
+// * \param z0 posição "z0" incial.
+// * \param z1 posição "z1" final.
+// */
+//void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1)
+//{
+//    for(int i = 0; i<nx; i++){
+//        for(int j = 0; j<ny; j++){
+//            for(int k = 0; k<nz; k++){
+//                if(i>=x0 && i<=x1 &&
+//                   j>=y0 && j<=y1 &&
+//                   k>=z0 && k<=z1){
+//                    v[i][j][k].isOn = false;
+//                }
+//            }
+//        }
+//    }
+//}
 
-/*!
- * Ativa todos os voxels que satisfazem à equação da esfera e atribui aos mesmos a cor atual de desenho (r,g,b,a).
- * \param xcenter centro da esfera na cordenada x.
- * \param ycenter centro da esfera na cordenada y.
- * \param zcenter centro da esfera na cordenada z.
- * \param radius raio da esfera
- */
-void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
-{
-    for(int i = 0; i<nx; i++){
-        for(int j = 0; j<ny; j++){
-            for(int k = 0; k<nz; k++){
-                if(
-                        ((i - xcenter)*(i - xcenter) + (j - ycenter)*(j - ycenter) + (k - zcenter)*(k - zcenter)) <= radius*radius
-                        ){
-                    v[i][j][k].isOn = true;
-                    v[i][j][k].r = r;
-                    v[i][j][k].g = g;
-                    v[i][j][k].b = b;
-                    v[i][j][k].a = a;
-                }
-            }
-        }
-    }
-}
+///*!
+// * Ativa todos os voxels que satisfazem à equação da esfera e atribui aos mesmos a cor atual de desenho (r,g,b,a).
+// * \param xcenter centro da esfera na cordenada x.
+// * \param ycenter centro da esfera na cordenada y.
+// * \param zcenter centro da esfera na cordenada z.
+// * \param radius raio da esfera
+// */
+//void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
+//{
+//    for(int i = 0; i<nx; i++){
+//        for(int j = 0; j<ny; j++){
+//            for(int k = 0; k<nz; k++){
+//                if(
+//                        ((i - xcenter)*(i - xcenter) + (j - ycenter)*(j - ycenter) + (k - zcenter)*(k - zcenter)) <= radius*radius
+//                        ){
+//                    v[i][j][k].isOn = true;
+//                    v[i][j][k].r = r;
+//                    v[i][j][k].g = g;
+//                    v[i][j][k].b = b;
+//                    v[i][j][k].a = a;
+//                }
+//            }
+//        }
+//    }
+//}
 
-/*!
- * Desativa todos os voxels que satisfazem à equação da esfera
- * \param xcenter centro da esfera na cordenada x.
- * \param ycenter centro da esfera na cordenada y.
- * \param zcenter centro da esfera na cordenada z.
- * \param radius raio da esfera
- */
-void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius)
-{
-    for(int i = 0; i<nx; i++){
-        for(int j = 0; j<ny; j++){
-            for(int k = 0; k<nz; k++){
-                if( ((i - xcenter)*(i - xcenter) + (j - ycenter)*(j - ycenter) + (k - zcenter)*(k - zcenter)) <= radius*radius ){
-                    v[i][j][k].isOn = false;
-                }
-            }
-        }
-    }
-}
+///*!
+// * Desativa todos os voxels que satisfazem à equação da esfera
+// * \param xcenter centro da esfera na cordenada x.
+// * \param ycenter centro da esfera na cordenada y.
+// * \param zcenter centro da esfera na cordenada z.
+// * \param radius raio da esfera
+// */
+//void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius)
+//{
+//    for(int i = 0; i<nx; i++){
+//        for(int j = 0; j<ny; j++){
+//            for(int k = 0; k<nz; k++){
+//                if( ((i - xcenter)*(i - xcenter) + (j - ycenter)*(j - ycenter) + (k - zcenter)*(k - zcenter)) <= radius*radius ){
+//                    v[i][j][k].isOn = false;
+//                }
+//            }
+//        }
+//    }
+//}
 
-/*!
- * Ativa todos os voxels que satisfazem à equação da elipsoide e atribui aos mesmos a cor atual de desenho (r,g,b,a).
- * \param xcenter centro da elipsoide na cordenada x.
- * \param ycenter centro da elipsoide na cordenada y.
- * \param zcenter centro da elipsoide na cordenada z.
- * \param rx Semi-eixo principal x da elipsoide.
- * \param ry Semi-eixo principal y da elipsoide.
- * \param rz Semi-eixo principal z da elipsoide.
- */
-void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
-{
-    for(int i = 0; i<nx; i++){
-        for(int j = 0; j<ny; j++){
-            for(int k = 0; k<nz; k++){
-                if( (((i - xcenter)*(i - xcenter))/(float)(rx*rx) + ((j - ycenter)*(j - ycenter))/(float)(ry*ry) + ((k - zcenter)*(k - zcenter))/(float)(rz*rz)) <= 1 ){
-                    v[i][j][k].isOn = true;
-                    v[i][j][k].r = r;
-                    v[i][j][k].g = g;
-                    v[i][j][k].b = b;
-                    v[i][j][k].a = a;
-                }
-            }
-        }
-    }
-}
+///*!
+// * Ativa todos os voxels que satisfazem à equação da elipsoide e atribui aos mesmos a cor atual de desenho (r,g,b,a).
+// * \param xcenter centro da elipsoide na cordenada x.
+// * \param ycenter centro da elipsoide na cordenada y.
+// * \param zcenter centro da elipsoide na cordenada z.
+// * \param rx Semi-eixo principal x da elipsoide.
+// * \param ry Semi-eixo principal y da elipsoide.
+// * \param rz Semi-eixo principal z da elipsoide.
+// */
+//void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
+//{
+//    for(int i = 0; i<nx; i++){
+//        for(int j = 0; j<ny; j++){
+//            for(int k = 0; k<nz; k++){
+//                if( (((i - xcenter)*(i - xcenter))/(float)(rx*rx) + ((j - ycenter)*(j - ycenter))/(float)(ry*ry) + ((k - zcenter)*(k - zcenter))/(float)(rz*rz)) <= 1 ){
+//                    v[i][j][k].isOn = true;
+//                    v[i][j][k].r = r;
+//                    v[i][j][k].g = g;
+//                    v[i][j][k].b = b;
+//                    v[i][j][k].a = a;
+//                }
+//            }
+//        }
+//    }
+//}
 
-/*!
- * Desativa todos os voxels que satisfazem à equação da elipsoide.
- * \param xcenter centro da elipsoide na cordenada x.
- * \param ycenter centro da elipsoide na cordenada y.
- * \param zcenter centro da elipsoide na cordenada z.
- * \param rx Semi-eixo principal x da elipsoide.
- * \param ry Semi-eixo principal y da elipsoide.
- * \param rz Semi-eixo principal z da elipsoide.
- */
-void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
-{
-    for(int i = 0; i<nx; i++){
-        for(int j = 0; j<ny; j++){
-            for(int k = 0; k<nz; k++){
-                if( (((i - xcenter)*(i - xcenter))/(float)(rx*rx) + ((j - ycenter)*(j - ycenter))/(float)(ry*ry) + ((k - zcenter)*(k - zcenter))/(float)(rz*rz)) <= 1 ){
-                    v[i][j][k].isOn = false;
-                }
-            }
-        }
-    }
-}
+///*!
+// * Desativa todos os voxels que satisfazem à equação da elipsoide.
+// * \param xcenter centro da elipsoide na cordenada x.
+// * \param ycenter centro da elipsoide na cordenada y.
+// * \param zcenter centro da elipsoide na cordenada z.
+// * \param rx Semi-eixo principal x da elipsoide.
+// * \param ry Semi-eixo principal y da elipsoide.
+// * \param rz Semi-eixo principal z da elipsoide.
+// */
+//void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
+//{
+//    for(int i = 0; i<nx; i++){
+//        for(int j = 0; j<ny; j++){
+//            for(int k = 0; k<nz; k++){
+//                if( (((i - xcenter)*(i - xcenter))/(float)(rx*rx) + ((j - ycenter)*(j - ycenter))/(float)(ry*ry) + ((k - zcenter)*(k - zcenter))/(float)(rz*rz)) <= 1 ){
+//                    v[i][j][k].isOn = false;
+//                }
+//            }
+//        }
+//    }
+//}
 
 /*!
  * Escreve um arquivo "filename".off no diretório do arquivo .exe com uma representação de nossa matriz 3D de voxels, 
@@ -321,7 +316,7 @@ void Sculptor::writeOFF(string filename)
     //the position of each vertex is shifted by a factor defined below (vRadius)
     //so that the total lenght of one side of the voxel is defined by vRadius*2
     //In the end, we will have each of our voxels separated by a 0.10 length gap from eachother
-    float vRadius=0.45f;
+    float vRadius=0.5f;
     for(int i = 0; i<nx; i++){
         for(int j = 0; j<ny; j++){
             for(int k = 0; k<nz; k++){

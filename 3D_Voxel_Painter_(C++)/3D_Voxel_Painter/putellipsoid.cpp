@@ -20,9 +20,9 @@ PutEllipsoid::~PutEllipsoid()
 
 void PutEllipsoid::draw(Sculptor &t)
 {
-    for(int i = 0; i<t.nx; i++){
-        for(int j = 0; j<t.ny; j++){
-            for(int k = 0; k<t.nz; k++){
+    for(int i = xcenter-rx; i<=xcenter+rx; i++){
+        for(int j = ycenter-ry; j<=ycenter+ry; j++){
+            for(int k = zcenter-rz; k<=zcenter+rz; k++){
                 if( (((i - xcenter)*(i - xcenter))/(float)(rx*rx) + ((j - ycenter)*(j - ycenter))/(float)(ry*ry) + ((k - zcenter)*(k - zcenter))/(float)(rz*rz)) <= 1 ){
                     t.setColor(r, g, b, a);
                     t.putVoxel(i, j, k);

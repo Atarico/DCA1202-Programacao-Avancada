@@ -24,7 +24,7 @@ int main()
     string s, filename;
     stringstream ss;
 
-    filename = "teste";
+    filename = "instructions";
 
     fin.open("./"+filename+".txt");
     if(!fin.is_open()){
@@ -37,12 +37,21 @@ int main()
         ss.str(s);
         ss>>s;
 
-        cout<< s <<endl;
-
         if(s.compare("dim")==0){
             int dx, dy, dz;
             ss>>dx>>dy>>dz;
             sculptor = new Sculptor(dx, dy, dz);
+        }
+        else if(s.compare("putvoxel")==0){
+            int x, y, z;
+            float r, g, b, a;
+            ss>>x>>y>>z>>r>>g>>b>>a;
+            figs.push_back(new PutVoxel(x, y, z, r, g, b, a));
+        }
+        else if(s.compare("cutvoxel")==0){
+            int x, y, z;
+            ss>>x>>y>>z;
+            figs.push_back(new CutVoxel(x, y, z));
         }
         else if(s.compare("putbox")==0){
             int x0, x1, y0, y1, z0, z1;
@@ -77,27 +86,19 @@ int main()
             ss>>xcenter>>ycenter>>zcenter>>rx>>ry>>rz;
             figs.push_back(new CutEllipsoid(xcenter, ycenter, zcenter, rx, ry, rz));
         }
-        else if(s.compare("putvoxel")==0){
-            int x, y, z;
-            float r, g, b, a;
-            ss>>x>>y>>z>>r>>g>>b>>a;
-            figs.push_back(new PutVoxel(x, y, z, r, g, b, a));
+        else {
+            cout<<"Error reading file, program execution interupted!"<<endl<<"Please make sure your instructions are correctly under our format before trying again."<<endl;
         }
-        else if(s.compare("cutvoxel")==0){
-            int x, y, z;
-            ss>>x>>y>>z;
-            figs.push_back(new CutVoxel(x, y, z));
-        }
-//        else {
-//            cout<<"Error reading file, program execution interupted!"<<endl<<"Please make sure your instructions are correctly under our guidelines before trying again."<<endl;
-//        }
     }
 
     for(int i = 0; i< figs.size(); i++){
         figs[i]->draw(*sculptor);
     }
 
+    cout<<"Saving our voxel matrix in .off and .vect files to allow for an easy visualization."<<endl<<"Please wait while the process finishes..."<<endl;
+
     (*sculptor).writeOFF("OFF_file");
+    (*sculptor).writeVECT("VECT_file");
 
     return 0;
 }
